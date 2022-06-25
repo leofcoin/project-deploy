@@ -1,14 +1,14 @@
-# project-deploy
+#project-deploy
 
 ## install
 ### cli usage
 ```sh
-npm i -g project-deploy
+npm i -g @leofcoin/project-deploy
 ```
 
 ### module usage
 ```sh
-npm i --save project-deploy
+npm i --save @leofcoin/project-deploy
 ```
 ## examples
 ### config
