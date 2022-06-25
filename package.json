@@ -1,0 +1,29 @@
+{
+  "name": "@leofcoin/project-deploy",
+  "version": "1.0.0",
+  "main": "dist/project-deloy.js",
+  "module": "src/project-deloy.js",
+  "scripts": {
+    "c": "rollup -c"
+  },
+  "bin": {
+    "project-deploy": "bin/cli.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^8.3.0",
+    "dotenv": "^16.0.1",
+    "globby": "^11.0.0",
+    "ora": "^5.0.0",
+    "solc": "^0.8.10"
+  },
+  "description": "",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.4.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "inquirer": "^8.2.2",
+    "rollup": "^2.70.1"
+  }
+}
