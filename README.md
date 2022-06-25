@@ -12,7 +12,6 @@ npm i --save @leofcoin/project-deploy
 ```
 ## examples
 ### config
-#### using config file in project folder
 project-deploy.config.json
 ```json
 {
@@ -33,6 +32,18 @@ project-deploy.config.json
   }
 }
 ```
+
+### .env
+```
+binance-smartchain-testnet_PRIVATE_KEY="...."
+
+```
+
+#### using config file in project folder and cli
+```sh
+project-deploy network binance-smartchain-testnet
+```
+
 
 #### using config file in project and module deployment for more advanced setups
 
