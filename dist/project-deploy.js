@@ -1,6 +1,6 @@
 'use strict';
 
-var getAddresses = require('./get-addresses-d16b4152.js');
+var getAddresses = require('./get-addresses-ca571639.js');
 var inquirer = require('inquirer');
 var utils = require('./utils.js');
 var dotenv = require('dotenv');
@@ -58,7 +58,7 @@ var projectDeploy = async (source, params = [], network) => {
       } else {
         contract = await getAddresses.deploy(contract, params, signer, logger);
       }
-
+console.log(addresses);
       addresses[contractName] = contract.address;
       await utils.write(path.join(config.addressesPath, `${network}.json`), JSON.stringify(addresses, null, 2));
     }

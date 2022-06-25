@@ -7,7 +7,7 @@ export default async (path, network) => {
     addresses = await read(join(path, `${network}.json`))
     addresses = JSON.parse(addresses.toString())
   } catch (e) {
-    addresses = []
+    addresses = {}
   }
   return addresses
 }

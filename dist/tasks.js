@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var getAddresses = require('./get-addresses-d16b4152.js');
+var getAddresses = require('./get-addresses-ca571639.js');
 require('./utils.js');
 require('fs');
 require('util');

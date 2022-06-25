@@ -46,7 +46,7 @@ export default async (source, params = [], network) => {
       } else {
         contract = await deploy(contract, params, signer, logger)
       }
-
+console.log(addresses);
       addresses[contractName] = contract.address
       await write(join(config.addressesPath, `${network}.json`), JSON.stringify(addresses, null, 2))
     }

@@ -3,31 +3,11 @@
 var utils = require('./utils.js');
 var path = require('path');
 var fs = require('fs');
-var glob = require('globby');
 var solc = require('solc');
 var ethers = require('ethers');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-function _interopNamespace(e) {
-  if (e && e.__esModule) return e;
-  var n = Object.create(null);
-  if (e) {
-    Object.keys(e).forEach(function (k) {
-      if (k !== 'default') {
-        var d = Object.getOwnPropertyDescriptor(e, k);
-        Object.defineProperty(n, k, d.get ? d : {
-          enumerable: true,
-          get: function () { return e[k]; }
-        });
-      }
-    });
-  }
-  n["default"] = e;
-  return Object.freeze(n);
-}
-
-var glob__namespace = /*#__PURE__*/_interopNamespace(glob);
 var solc__default = /*#__PURE__*/_interopDefaultLegacy(solc);
 
 const get = async path => {
@@ -59,7 +39,7 @@ const defaultConfig = {
 };
 
 var getConfig = async (config = {}) => {
-  const paths = await glob__namespace(['project-deploy.config.*']);
+  const paths = await utils.glob(['project-deploy.config.*']);
 
   if (paths.length > 0) config = paths[0].includes('.json') && await get(paths[0]);
 
@@ -218,7 +198,7 @@ var compile = async (sources, dependencies, config, solcConfig, logger) => {
 
 var deploy = async ({ contractName, abi, bytecode }, params = [], signer, logger) => {
   const factory = new ethers.ContractFactory(abi, bytecode, signer);
-  const contract = await factory.deploy(...params, { gasLimit: 21000000 });
+  const contract = await factory.deploy(...params);
   await contract.deployTransaction.wait();
   logger.info(`deployed ${contractName} as ${contract.address}`);
   return contract
@@ -268,7 +248,7 @@ var getAddresses = async (path$1, network) => {
     addresses = await utils.read(path.join(path$1, `${network}.json`));
     addresses = JSON.parse(addresses.toString());
   } catch (e) {
-    addresses = [];
+    addresses = {};
   }
   return addresses
 };
