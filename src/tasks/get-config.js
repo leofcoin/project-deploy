@@ -23,6 +23,10 @@ const defaultConfig = {
   autoFix: true,
   license: 'MIT',
   networks: {
+    'goerli': {
+      rpcUrl: 'https://goerli.prylabs.net',
+      chainId: 5
+    },
     'binance-smartchain-testnet': {
       rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
       chainId: 97
@@ -32,7 +36,7 @@ const defaultConfig = {
       chainId: 56
     }
   },
-  defaultNetwork: 'binance-smartchain-testnet'
+  defaultNetwork: 'goerli'
 };
 
 export default async (config = {}) => {
@@ -41,6 +45,7 @@ export default async (config = {}) => {
   if (paths.length > 0) config = paths[0].includes('.json') && await get(paths[0])
 
   config = {...defaultConfig, ...config}
+  config.networks = { ...defaultConfig.networks, ...config.networks }
 
   try {
     mkdirSync(config.abiPath)
