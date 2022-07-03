@@ -56,6 +56,6 @@ export default async (source, params = [], network, secret) => {
       await write(join(config.addressesPath, `${network}.json`), JSON.stringify(addresses, null, 2))
     }
   // }
-return contract
+  return contract
   // await deploy(contractPaths, config)
 }
