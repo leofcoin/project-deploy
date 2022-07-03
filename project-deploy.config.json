@@ -1,6 +1,7 @@
 {
   "deploy": {
-    "contracts/TestContract.sol": ["0x4eCfe05bAe2535f13a92A16E60Be1b68BdEDEDb7"],
+    "contracts/newContract.sol": ["0x4eCfe05bAe2535f13a92A16E60Be1b68BdEDEDb7"],
+
     "contracts/AnotherContract.sol": ["0x4eCfe05bAe2535f13a92A16E60Be1b68BdEDEDb7"]
   },
   "autoFix": true,
