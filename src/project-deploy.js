@@ -7,8 +7,9 @@ import { join } from 'path'
 import { providers, Wallet} from 'ethers'
 const { prompt } = inquirer
 import secureEnv from 'secure-env'
+import {findLinkReferences} from 'solc/linker'
 
-export default async (source, params = [], network, secret) => {
+export default async (source, params = [], libraries = [], network, secret) => {
   const logger = await getLogger()
   const config = await getConfig()
 
@@ -37,6 +38,13 @@ export default async (source, params = [], network, secret) => {
     let contract = await compile(contractPaths, dependencies, config, logger)
     if (globalThis.deployable === true) {
       const contractName = contract.contractName
+      const references = findLinkReferences(contract.bytecode)
+      let i = 0
+      for (const ref of Object.keys(references)) {
+        contract.bytecode = contract.bytecode.replace(`__${ref}__`, libraries[i].replace('0x', ''))
+        i++
+      }
+      // if (libraries) contract.bytecode = linkBytecode(contract.bytecode, _references)
       if (addresses[contract.contractName]) {
         const answers = await prompt({
           type: 'confirm',
@@ -51,10 +59,10 @@ export default async (source, params = [], network, secret) => {
         contract = await deploy(contract, params, signer, logger)
       }
 
-      addresses[contractName] = contract.address
+      if (!contract.address) contract.address = addresses[contractName]
+      else addresses[contractName] = contract.address
       await write(join(config.addressesPath, `${network}.json`), JSON.stringify(addresses, null, 2))
     }
   // }
   return contract
-  // await deploy(contractPaths, config)
 }

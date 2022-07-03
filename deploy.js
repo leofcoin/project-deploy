@@ -1,8 +1,8 @@
-import deploy from './src/project-deploy.js'
+const deploy = require('./')
 
-const network = 'binance-smartchain-testnet';
+const network = 'goerli';
 
 (async (deployer) => {
-  const result = await deploy('contracts/TestContract.sol', ['0x4eCfe05bAe2535f13a92A16E60Be1b68BdEDEDb7'], network)
-  console.log(result);
+  const library = await deploy('contracts/TestLibrary.sol', undefined, undefined, network, 'mySecretPassword')
+  const result = await deploy('contracts/TestContract.sol', ['0x4eCfe05bAe2535f13a92A16E60Be1b68BdEDEDb7'], [library.address], network, 'mySecretPassword')
 })()

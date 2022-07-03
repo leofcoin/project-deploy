@@ -17,20 +17,23 @@ export default async (sources, dependencies, config, logger) => {
   output = JSON.parse(output);
 
   if (output.errors) {
-      globalThis.deployable = false
       for (const error of output.errors) {
         try {
           const {errorCode, sourceLocation, type, formattedMessage} = error
-          if (type === 'Error') return logger.fail(error);
+          if (type === 'Error') {
+            globalThis.deployable = false
+            return logger.fail(error);
+          }
           if (errorCode === '1878') config.autoFix && config.license && await addLicence(config.license, sourceLocation.file, logger)
           else if (errorCode === '3420') config.autoFix && await addPragmaVersion(solc.semver().split('+')[0], sourceLocation.file, logger)
           else if (errorCode === '5333') config.autoFix && await setPragmaVersion(solc.semver().split('+')[0], sourceLocation.file, logger)
-          else logger.fail(`${type}: ${formattedMessage}`)
-
-          if (!config.autoFix) {
-            logger.info(`${errorCode}: ${formattedMessage}`)
-          } else {
-            logger.info(`undeployable! fixes have been applied, rerun to deploy`)
+          else if (type === 'Warning') logger.info(`${type}: ${formattedMessage}`)
+          else {
+            if (!config.autoFix) {
+              logger.info(`${errorCode}: ${formattedMessage}`)
+            } else {
+              logger.info(`undeployable! fixes have been applied, rerun to deploy`)
+            }
           }
         } catch (e) {
           globalThis.deployable = false

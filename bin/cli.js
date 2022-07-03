@@ -16,7 +16,7 @@ const deploy = require('./../dist/project-deploy.js');
   for (const deployment of Object.keys(config.deploy)) {
 
     try {
-      await deploy(deployment, config.deploy[deployment], network, secret)
+      await deploy(deployment, config.deploy[deployment], config.deploy[deployment].libraries, network, secret)
     } catch (e) {
       getLogger().fail(e.message)
     }
