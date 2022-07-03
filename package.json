@@ -16,6 +16,7 @@
     "commander": "^8.3.0",
     "dotenv": "^16.0.1",
     "globby": "^11.0.0",
+    "inquirer": "^8.0.0",
     "ora": "^5.0.0",
     "secure-env": "^1.2.0",
     "solc": "^0.8.10"
@@ -24,7 +25,6 @@
   "devDependencies": {
     "@openzeppelin/contracts": "^4.4.1",
     "@rollup/plugin-json": "^4.1.0",
-    "inquirer": "^8.2.4",
     "rollup": "^2.70.1"
   }
 }
