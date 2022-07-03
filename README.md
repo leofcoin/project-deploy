@@ -37,6 +37,12 @@ project-deploy.config.json
 }
 ```
 
+### solc
+When using another solc verion then the package uses, install the desired version yourself with
+```
+npm i solc@0.8.10
+```
+
 ### .env
 ```
 binance-smartchain-testnet_PRIVATE_KEY="...."
