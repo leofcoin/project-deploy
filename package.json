@@ -17,6 +17,7 @@
     "dotenv": "^16.0.1",
     "globby": "^11.0.0",
     "ora": "^5.0.0",
+    "secure-env": "^1.2.0",
     "solc": "^0.8.10"
   },
   "description": "",

@@ -28,6 +28,10 @@ project-deploy.config.json
     "binance-smartchain": {
       "rpcUrl": "https://bsc-dataseed.binance.org",
       "chainId": 56
+    },
+    "goerli": {
+      "rpcUrl": "https://goerli.prylabs.net",
+      "chainId": "5"
     }
   }
 }
@@ -36,12 +40,24 @@ project-deploy.config.json
 ### .env
 ```
 binance-smartchain-testnet_PRIVATE_KEY="...."
-
+goerli_PRIVATE_KEY="...."
 ```
 
-#### using config file in project folder and cli
+### secure-securenv
+```
+npx secure-env .env -s mySecretPassword
+```
+
+#### using config file in project folder and cli (with secure-env)
+Checkout [secure-env](https://www.npmjs.com/package/secure-env) to learn more
 ```sh
-project-deploy network binance-smartchain-testnet
+project-deploy --network goerli --secret mySecretPassword
+```
+
+#### using config file in project folder and cli (without secure-env)
+Fallsback to dotenv
+```sh
+project-deploy --network goerli
 ```
 
 
@@ -50,7 +66,7 @@ project-deploy network binance-smartchain-testnet
 ```js
 import deploy from 'project-deploy.js';
 
-const testContract = await deploy('contracts/TestContract.sol', ["0x4eCfe05bAe2535f13a92A16E60Be1b68BdEDEDb7"])
+const testContract = await deploy('contracts/TestContract.sol', ["0x4eCfe05bAe2535f13a92A16E60Be1b68BdEDEDb7"], 'goerli', 'mySecretPassword')
 
-const anotherContract = await deploy('contracts/AnotherContract.sol', [testContract.address])
+const anotherContract = await deploy('contracts/AnotherContract.sol', [testContract.address], 'goerli', 'mySecretPassword')
 ```

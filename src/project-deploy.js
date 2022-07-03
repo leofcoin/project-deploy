@@ -5,12 +5,16 @@ import { getLogger, write } from './utils.js'
 import dotenv from 'dotenv'
 import { join } from 'path'
 import { providers, Wallet} from 'ethers'
-const dotenvConfig = dotenv.config().parsed
 const { prompt } = inquirer
+import secureEnv from 'secure-env'
 
-export default async (source, params = [], network) => {
+export default async (source, params = [], network, secret) => {
   const logger = await getLogger()
   const config = await getConfig()
+
+  const dotenvConfig = secret ? secureEnv({secret}) : dotenv.config().parsed
+
+  if (!network && config.network) network = config.defaultNetwork
 
   const provider = new providers.JsonRpcProvider(
     config.networks[network].rpcUrl,
@@ -19,7 +23,8 @@ export default async (source, params = [], network) => {
     }
   )
 
-  if (!dotenvConfig[`${network}_PRIVATE_KEY`]) throw new Error(`No key found in .env for ${network}_PRIVATE_KEY`)
+  if (!secret && !dotenvConfig[`${network}_PRIVATE_KEY`]) throw new Error(`No key found in .env for ${network}_PRIVATE_KEY`)
+  if (secret && !dotenvConfig[`${network}_PRIVATE_KEY`]) throw new Error(`No key found in .env for ${network}_PRIVATE_KEY`)
 
   const signer = new Wallet(dotenvConfig[`${network}_PRIVATE_KEY`], provider)
 
@@ -46,7 +51,7 @@ export default async (source, params = [], network) => {
       } else {
         contract = await deploy(contract, params, signer, logger)
       }
-console.log(addresses);
+
       addresses[contractName] = contract.address
       await write(join(config.addressesPath, `${network}.json`), JSON.stringify(addresses, null, 2))
     }
