@@ -36,7 +36,18 @@ const defaultConfig = {
       chainId: 56
     }
   },
-  defaultNetwork: 'goerli'
+  defaultNetwork: 'goerli',
+  solc: {
+    optimizer: {
+      enabled: true,
+      runs: 200
+    },
+    outputSelection: {
+      '*': {
+        '*': ['abi', 'metadata', 'evm.bytecode']
+      }
+    }
+  }
 };
 
 export default async (config = {}) => {
@@ -46,6 +57,7 @@ export default async (config = {}) => {
 
   config = {...defaultConfig, ...config}
   config.networks = { ...defaultConfig.networks, ...config.networks }
+  config.solc = { ...defaultConfig.solc, ...config.solc }
 
   try {
     mkdirSync(config.abiPath)

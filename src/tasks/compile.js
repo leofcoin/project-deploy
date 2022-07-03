@@ -6,17 +6,11 @@ import solc from 'solc'
 import {write} from './../utils.js'
 import {join} from 'path'
 
-export default async (sources, dependencies, config, solcConfig, logger) => {
+export default async (sources, dependencies, config, logger) => {
   const input = {
     language: 'Solidity',
     sources: {...sources, ...dependencies },
-    settings: {
-      outputSelection: {
-        '*': {
-          '*': ['abi', 'metadata', 'evm.bytecode']
-        }
-      }
-    }
+    settings: config.solc
   };
 
   let output = solc.compile(JSON.stringify(input), {cwd: process.cwd()})

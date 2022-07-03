@@ -29,13 +29,12 @@ export default async (source, params = [], network, secret) => {
   const signer = new Wallet(dotenvConfig[`${network}_PRIVATE_KEY`], provider)
 
   const addresses = await getAddresses(config.addressesPath, network)
-  const solc = config.solc
   const contractPaths = await getContract(source, logger)
   // for (const path of Object.keys(contractPaths)) {
     globalThis.deployable = true
     logger.info(`compiling ${source}`)
     const dependencies = await getDependencies(contractPaths[source].content, source, logger)
-    let contract = await compile(contractPaths, dependencies, config, config.solc, logger)
+    let contract = await compile(contractPaths, dependencies, config, logger)
     if (globalThis.deployable === true) {
       const contractName = contract.contractName
       if (addresses[contract.contractName]) {
