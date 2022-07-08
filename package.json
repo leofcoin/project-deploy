@@ -1,6 +1,6 @@
 {
   "name": "@leofcoin/project-deploy",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "main": "dist/project-deploy.js",
   "module": "src/project-deploy.js",
   "scripts": {
@@ -9,7 +9,12 @@
   "bin": {
     "project-deploy": "bin/cli.js"
   },
-  "keywords": ["contract", "evm", "deploy", "project"],
+  "keywords": [
+    "contract",
+    "evm",
+    "deploy",
+    "project"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
