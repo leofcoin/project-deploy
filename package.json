@@ -9,7 +9,7 @@
   "bin": {
     "project-deploy": "bin/cli.js"
   },
-  "keywords": [],
+  "keywords": ["contract", "evm", "deploy", "project"],
   "author": "",
   "license": "MIT",
   "dependencies": {
