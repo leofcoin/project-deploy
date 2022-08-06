@@ -64,5 +64,5 @@ export default async (source, params = [], libraries = [], network, secret) => {
       await write(join(config.addressesPath, `${network}.json`), JSON.stringify(addresses, null, 2))
     }
   // }
-  return contract?.signer ? contract : { signer }
+  return contract?.signer ? contract : { signer, address: contract.address }
 }
