@@ -1,6 +1,6 @@
 {
   "name": "@leofcoin/project-deploy",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "main": "dist/project-deploy.js",
   "module": "src/project-deploy.js",
   "scripts": {
